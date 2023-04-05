@@ -21,7 +21,24 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class DownloadService {
 
-    private final String PATH = "C:\\reactly-project\\";
+    public final String DIRECTORY_NAME = "reactly-projects";
+    public String DIRECTORY_PATH = "";
+    public DownloadService()
+    {
+        DIRECTORY_PATH = createDirectory();
+    }
+
+    private String createDirectory()
+    {
+        //try create directory at root
+        File directory = new File(DIRECTORY_NAME);
+        if (!directory.exists())
+        {
+            directory.mkdir();
+        }
+
+        return directory.getAbsolutePath();
+    }
 
     public Resource getZippedProject(DownloadRequestDto dto) throws IOException {
         String rootPath = copyTemplateProject();
@@ -48,7 +65,7 @@ public class DownloadService {
 
     private String copyTemplateProject() throws IOException {
         String source = getClass().getClassLoader().getResource("project-template").getPath();
-        String destination = PATH;
+        String destination = DIRECTORY_PATH;
         File destinationDirectory = new File(destination);
         FileUtils.cleanDirectory(destinationDirectory);
         FileUtils.copyDirectory(new File(source), new File(destination));
