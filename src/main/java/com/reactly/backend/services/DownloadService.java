@@ -53,11 +53,10 @@ public class DownloadService {
         String destination = DIRECTORY_NAME;
         File destinationDirectory = new File(destination);
         if (destinationDirectory.exists()) {
-            FileUtils.cleanDirectory(destinationDirectory);
+            FileUtils.deleteDirectory(destinationDirectory);
         }
-        else {
-            destinationDirectory.mkdir();
-        }
+        destinationDirectory.mkdir();
+
         FileUtils.copyDirectory(new File(source), new File(destination));
         return destinationDirectory.getAbsolutePath();
     }
