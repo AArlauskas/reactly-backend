@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -42,7 +45,15 @@ public class DownloadController {
 
         }
         catch (Exception e) {
-            System.out.println(e);
+            String exceptionMessage = e.getMessage();
+            String stackTrace =e
+                    + Arrays.asList(e.getStackTrace())
+                    .stream()
+                    .map(Objects::toString)
+                    .collect(Collectors.joining("\n"));
+            System.out.println("Exception " + e);
+            System.out.println("Exception message: " + exceptionMessage);
+            System.out.println("Stack trace: " + stackTrace);
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
