@@ -25,6 +25,7 @@ public class DownloadService {
 
     public Resource getZippedProject(DownloadRequestDto dto) throws IOException {
         String rootPath = copyTemplateProject();
+        System.out.println("root path: " + rootPath);
         createAppFile(rootPath, dto.root);
         createThemeFile(rootPath, dto.theme);
         dto.pages.forEach(page -> {
@@ -48,7 +49,7 @@ public class DownloadService {
 
     private String copyTemplateProject() throws IOException {
         System.out.println(System.getProperty("user.dir"));
-        String source = getClass().getClassLoader().getResource("project-template").getPath();
+        String source = "/app/src/main/resources/project-template";
         String destination = DIRECTORY_NAME;
         File destinationDirectory = new File(destination);
         if (destinationDirectory.exists()) {
