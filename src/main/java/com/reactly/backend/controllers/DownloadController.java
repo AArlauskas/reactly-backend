@@ -42,8 +42,7 @@ public class DownloadController {
 
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+            System.out.println(e);
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
