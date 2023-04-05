@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -50,7 +51,7 @@ public class DownloadService {
     private String copyTemplateProject() throws IOException {
         System.out.println(System.getProperty("user.dir"));
         String source = "/app/src/main/resources/project-template";
-        String destination = DIRECTORY_NAME;
+        String destination = DIRECTORY_NAME + "\\" + UUID.randomUUID().toString();
         File destinationDirectory = new File(destination);
         if (destinationDirectory.exists()) {
             FileUtils.deleteDirectory(destinationDirectory);
