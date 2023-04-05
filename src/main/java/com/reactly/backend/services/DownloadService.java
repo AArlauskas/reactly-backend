@@ -47,7 +47,8 @@ public class DownloadService {
     }
 
     private String copyTemplateProject() throws IOException {
-        String source = ClassLoader.getSystemResource("project-template").getPath();
+        System.out.println(System.getProperty("user.dir"));
+        String source = getClass().getClassLoader().getResource("project-template").getPath();
         String destination = DIRECTORY_NAME;
         File destinationDirectory = new File(destination);
         if (destinationDirectory.exists()) {
