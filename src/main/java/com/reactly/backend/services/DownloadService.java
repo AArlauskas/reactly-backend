@@ -50,7 +50,12 @@ public class DownloadService {
         String source = getClass().getClassLoader().getResource("project-template").getPath();
         String destination = DIRECTORY_NAME;
         File destinationDirectory = new File(destination);
-        FileUtils.cleanDirectory(destinationDirectory);
+        if (destinationDirectory.exists()) {
+            FileUtils.cleanDirectory(destinationDirectory);
+        }
+        else {
+            destinationDirectory.mkdir();
+        }
         FileUtils.copyDirectory(new File(source), new File(destination));
         return destinationDirectory.getAbsolutePath();
     }
