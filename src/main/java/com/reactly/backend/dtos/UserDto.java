@@ -1,5 +1,7 @@
 package com.reactly.backend.dtos;
 
+import com.reactly.backend.entities.User;
+
 public class UserDto {
     public String id;
     public String firstName;
@@ -16,4 +18,13 @@ public class UserDto {
         this.lastName = lastName;
         this.email = email;
     }
+
+    public UserDto(User user)
+    {
+        id = user.getId();
+        firstName = user.getFirstName();
+        lastName = user.getLastName();
+        email = user.getEmail();
+    }
+
 }

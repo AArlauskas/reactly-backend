@@ -3,14 +3,19 @@ package com.reactly.backend.services;
 import com.reactly.backend.dtos.UserDto;
 import com.reactly.backend.entities.User;
 import com.reactly.backend.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -82,8 +87,26 @@ public class UserService {
     }
 
     //get user by email
-    public User getUserByEmail(String email) {
+    public User getUserByUsernameAuth(String email) {
         return userRepository.findByEmail(email);
     }
 
+    private Set<SimpleGrantedAuthority> getAuthority(User user) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+        return authorities;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return null;
+        }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
+    }
+
+    public User getAuthUser(UserDetails authentication) {
+        return userRepository.findByEmailAndPassword(authentication.getUsername(), authentication.getPassword());
+    }
 }

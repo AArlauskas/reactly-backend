@@ -29,7 +29,8 @@ public class Website {
     @Getter @Setter
     public String name;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     @Getter @Setter
+    @Lob
     public String content;
 }

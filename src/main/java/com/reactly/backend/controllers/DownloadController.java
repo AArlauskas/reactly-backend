@@ -25,7 +25,7 @@ public class DownloadController {
     }
 
     @RequestMapping(value = "healthcheck", method = RequestMethod.GET)
-    public ResponseEntity<String> healtcheck()
+    public ResponseEntity<String> healthcheck()
     {
         return ResponseEntity.ok("Service is UP");
     }

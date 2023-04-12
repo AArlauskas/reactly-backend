@@ -2,6 +2,7 @@ package com.reactly.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.reactly.backend.enums.UserRoles;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -37,6 +38,10 @@ public class User {
     @Column
     @Getter @Setter
     public String password;
+
+    @Column
+    @Getter @Setter
+    private String role = UserRoles.BASIC.toString();
 
     @Getter @Setter
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
