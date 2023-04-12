@@ -51,7 +51,7 @@ public class UserController {
     @RequestMapping(value = "personal", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ADMIN','BASIC')")
     public ResponseEntity<UserDto> getPersonalInfo(Authentication authentication) {
-        User user = userService.getAuthUser((UserDetails)authentication);
+        User user = userService.getAuthUser((UserDetails)authentication.getPrincipal());
         if(user == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(new UserDto(user));
