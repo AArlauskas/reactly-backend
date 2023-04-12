@@ -1,6 +1,8 @@
 package com.reactly.backend.controllers;
 
 import com.reactly.backend.dtos.RenameWebsiteRequestDto;
+import com.reactly.backend.errors.BaseException;
+import com.reactly.backend.errors.ErrorCode;
 import com.reactly.backend.services.UserService;
 import com.reactly.backend.services.WebsiteService;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +23,17 @@ public class WebsiteController {
 
     //rename website
     @RequestMapping(value = "rename", method = RequestMethod.PUT)
-    public ResponseEntity<Void> renameWebsite(@RequestBody RenameWebsiteRequestDto dto) {
+    public ResponseEntity<Void> renameWebsite(@RequestBody RenameWebsiteRequestDto dto) throws BaseException {
 
         //validate
         if(dto.websiteId == null || dto.websiteId.isEmpty())
         {
-            throw new IllegalArgumentException("Website id is required");
+            throw new BaseException(ErrorCode.BAD_PARAMETERS, "Website id is required");
         }
 
         if(dto.newName == null || dto.newName.length() < 3)
         {
-            throw new IllegalArgumentException("New name is required");
+            throw new BaseException(ErrorCode.BAD_PARAMETERS, "New name is required");
         }
 
         if(websiteService.isWebsiteExist(dto.websiteId))

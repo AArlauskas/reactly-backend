@@ -1,7 +1,7 @@
 package com.reactly.backend.services;
 
 import com.reactly.backend.dtos.DownloadRequestDto;
-import com.reactly.backend.entitites.PageEntity;
+import com.reactly.backend.dtos.PageDto;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -76,7 +76,7 @@ public class DownloadService {
         Files.writeString(appPath, themeContent);
     }
 
-    private void createPageFile(String path, PageEntity page) throws IOException {
+    private void createPageFile(String path, PageDto page) throws IOException {
         String filePath = path + "\\src\\pages\\" + page.title + ".jsx";
         Path pagePath = Path.of(filePath);
         Files.createFile(pagePath);

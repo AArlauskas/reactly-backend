@@ -71,4 +71,19 @@ public class UserService {
         return userDtos;
     }
 
+    //register
+    public User register(UserDto dto) {
+        User user = new User();
+        user.setEmail(dto.email);
+        user.setPassword(dto.password);
+        user.setFirstName(dto.firstName);
+        user.setLastName(dto.lastName);
+        return addUser(user);
+    }
+
+    //get user by email
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }
