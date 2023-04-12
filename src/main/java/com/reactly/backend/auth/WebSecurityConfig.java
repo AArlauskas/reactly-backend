@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/downloads/healthcheck",
-                        "api/downloads/zip",
+                        "/api/downloads/zip",
                         "/api/users/authenticate",
                         "/api/users/register")
                 .permitAll()
