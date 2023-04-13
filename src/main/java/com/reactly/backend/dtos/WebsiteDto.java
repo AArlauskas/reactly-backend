@@ -1,5 +1,7 @@
 package com.reactly.backend.dtos;
 
+import com.reactly.backend.entities.Website;
+
 public class WebsiteDto {
     public String id;
     public String name;
@@ -14,5 +16,11 @@ public class WebsiteDto {
         this.name = name;
         this.content = content;
         this.user = user;
+    }
+
+    public WebsiteDto(Website website)
+    {
+        id = website.getId();
+        name = website.getName();
     }
 }

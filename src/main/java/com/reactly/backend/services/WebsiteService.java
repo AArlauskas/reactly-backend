@@ -1,5 +1,6 @@
 package com.reactly.backend.services;
 
+import com.reactly.backend.entities.User;
 import com.reactly.backend.entities.Website;
 import com.reactly.backend.repositories.WebsiteRepository;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,14 @@ public class WebsiteService {
 
     //add website
     public Website addWebsite(Website website) {
+        return websiteRepository.save(website);
+    }
+
+    //create website
+    public Website createWebsite(String websiteName, User user) {
+        Website website = new Website();
+        website.setName(websiteName);
+        website.setUser(user);
         return websiteRepository.save(website);
     }
 
